@@ -11,7 +11,9 @@ package com.example.android.justjava;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.text.NumberFormat;
@@ -21,11 +23,16 @@ import java.text.NumberFormat;
 public class MainActivity extends AppCompatActivity {
 
     int quantity = 2;
+    boolean check= false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
+
+
+
 
     public void increment(View view) {
 
@@ -49,8 +56,12 @@ public class MainActivity extends AppCompatActivity {
      */
     public void submitOrder(View view) {
 
+        CheckBox whippedCream = (CheckBox) findViewById(R.id.checkboxCream);
+        boolean haswhippedCream = whippedCream.isChecked();
+        Log.v("MainActivity", "Has whipped cream " + haswhippedCream);
         int Price= calculatePrice();
-        String msg = orderSummary(Price);
+        String msg = orderSummary(Price, haswhippedCream);
+
         displayMessage(msg);
 
         //Intent new_screen = new Intent(MainActivity.this,Receipt.class);
@@ -62,10 +73,13 @@ public class MainActivity extends AppCompatActivity {
         return (priceMsg);
     }
 
-    private String orderSummary (int Price) {
+    private String orderSummary (int Price, boolean add) {
 
-        String sum = "Name: Hamza Shirazi" + "\nQuantity: " + quantity + "\nTotal: "+ Price + "\nThank You!";
-        return(sum);
+
+           String sum = "Name: Hamza Shirazi" + "\nQuantity: " + quantity + "\nWhip Cream added? " + add + "\nTotal: "+ Price + "\nThank You!";
+            return(sum);
+
+
     }
 
     /**
